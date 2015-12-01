@@ -1,0 +1,104 @@
+using System;
+using System.Linq;
+using cAlgo.API;
+using cAlgo.API.Indicators;
+using cAlgo.API.Internals;
+using cAlgo.Indicators;
+using System.Net;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+
+
+namespace cAlgo
+{
+    [Robot(TimeZone = TimeZones.UTC, AccessRights = AccessRights.Internet)]
+    public class Twit : Robot
+    {
+        [Parameter(DefaultValue = 0.0)]
+        public double Parameter { get; set; }
+
+        protected override void OnStart()
+        {
+            // Put your initialization logic here
+
+        }
+
+        protected override void OnBar()
+        {
+            // Put your core logic here
+            SendToTwitter("Pierwsza wiadomość z cAlgo. " + Time);
+        }
+
+        protected override void OnStop()
+        {
+            // Put your deinitialization logic here
+        }
+
+
+
+        //function to post message to twitter (parameter string message)
+        private void SendToTwitter(string message)
+        {
+            //The facebook json url to update the status
+            string URL = "https://api.twitter.com/1.1/statuses/update.json";
+
+            //set the access tokens (REQUIRED)
+            string oauth_consumer_key = "eKBDSSdS2A38SjEFgx6WzTaBG";
+            string oauth_consumer_secret = "CdES2IWLdGVW9lHXrqi0nmhRogfiqGdMA2LDs93UpV7lRJeoPH";
+            string oauth_token = "4296858857-iCF7ldaobQzI5oEkXjfwtewAGUrd5G4vEKYl3j4";
+            string oauth_token_secret = "HQmlavfC2gkgGs3J6T3upeQ9Q9Jzk7649PVB22TXYUXrN";
+
+            // set the oauth version and signature method
+            string oauth_version = "1.0";
+            string oauth_signature_method = "HMAC-SHA1";
+
+            // create unique request details
+            string oauth_nonce = Convert.ToBase64String(new ASCIIEncoding().GetBytes(DateTime.Now.Ticks.ToString()));
+            System.TimeSpan timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc));
+            string oauth_timestamp = Convert.ToInt64(timeSpan.TotalSeconds).ToString();
+
+            // create oauth signature
+            string baseFormat = "oauth_consumer_key={0}&oauth_nonce={1}&oauth_signature_method={2}" + "&oauth_timestamp={3}&oauth_token={4}&oauth_version={5}&status={6}";
+
+            string baseString = string.Format(baseFormat, oauth_consumer_key, oauth_nonce, oauth_signature_method, oauth_timestamp, oauth_token, oauth_version, Uri.EscapeDataString(message));
+
+            string oauth_signature = null;
+            using (HMACSHA1 hasher = new HMACSHA1(ASCIIEncoding.ASCII.GetBytes(Uri.EscapeDataString(oauth_consumer_secret) + "&" + Uri.EscapeDataString(oauth_token_secret))))
+            {
+                oauth_signature = Convert.ToBase64String(hasher.ComputeHash(ASCIIEncoding.ASCII.GetBytes("POST&" + Uri.EscapeDataString(URL) + "&" + Uri.EscapeDataString(baseString))));
+            }
+
+            // create the request header
+            string authorizationFormat = "OAuth oauth_consumer_key=\"{0}\", oauth_nonce=\"{1}\", " + "oauth_signature=\"{2}\", oauth_signature_method=\"{3}\", " + "oauth_timestamp=\"{4}\", oauth_token=\"{5}\", " + "oauth_version=\"{6}\"";
+
+            string authorizationHeader = string.Format(authorizationFormat, Uri.EscapeDataString(oauth_consumer_key), Uri.EscapeDataString(oauth_nonce), Uri.EscapeDataString(oauth_signature), Uri.EscapeDataString(oauth_signature_method), Uri.EscapeDataString(oauth_timestamp), Uri.EscapeDataString(oauth_token), Uri.EscapeDataString(oauth_version));
+
+            HttpWebRequest objHttpWebRequest = (HttpWebRequest)WebRequest.Create(URL);
+            objHttpWebRequest.Headers.Add("Authorization", authorizationHeader);
+            objHttpWebRequest.Method = "POST";
+            objHttpWebRequest.ContentType = "application/x-www-form-urlencoded";
+            using (Stream objStream = objHttpWebRequest.GetRequestStream())
+            {
+                byte[] content = ASCIIEncoding.ASCII.GetBytes("status=" + Uri.EscapeDataString(message));
+                objStream.Write(content, 0, content.Length);
+            }
+
+            var responseResult = "";
+            try
+            {
+                //success posting
+                WebResponse objWebResponse = objHttpWebRequest.GetResponse();
+                StreamReader objStreamReader = new StreamReader(objWebResponse.GetResponseStream());
+                responseResult = objStreamReader.ReadToEnd().ToString();
+                Print(responseResult);
+            } catch (Exception ex)
+            {
+                //throw exception error
+                responseResult = "Twitter Post Error: " + ex.Message.ToString() + ", authHeader: " + authorizationHeader;
+                Print(responseResult);
+            }
+        }
+
+    }
+}
