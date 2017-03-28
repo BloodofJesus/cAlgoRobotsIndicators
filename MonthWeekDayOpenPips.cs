@@ -16,8 +16,11 @@ namespace cAlgo.Indicators
         [Output("MonthOpen", Color = Colors.Gold, PlotType = PlotType.Line, Thickness = 3)]
         public IndicatorDataSeries OpenMonth { get; set; }
 
-        [Parameter("Show 100PipsLevels", DefaultValue = 0)]
+        [Parameter("Show 100PipsLevels", DefaultValue = 1)]
         public bool Set100Levels { get; set; }
+
+        [Parameter("Show 500PipsLevels", DefaultValue = 1)]
+        public bool Set500Levels { get; set; }
 
         [Parameter("MinLevel", DefaultValue = 0, MinValue = 0)]
         public int MinLevel { get; set; }
@@ -98,6 +101,14 @@ namespace cAlgo.Indicators
                 for (int i = MinLevel; i < MaxLevel; i++)
                 {
                     ChartObjects.DrawHorizontalLine("Level" + i, i * 100 * Symbol.PipSize, Colors.Gray, 1, LineStyle.LinesDots);
+                }
+            }
+
+            if (Set500Levels && MinLevel < MaxLevel)
+            {
+                for (int i = MinLevel; i < MaxLevel; i++)
+                {
+                    ChartObjects.DrawHorizontalLine("Level500" + i, i * 500 * Symbol.PipSize, Colors.DodgerBlue, 1, LineStyle.Solid);
                 }
             }
 
