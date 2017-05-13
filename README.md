@@ -12,9 +12,9 @@ Choose one from below:
 * 8) Every 500 Pips add position (long time trading)
 
 # I like: GBPJPY, GBPAUD, #US30, #WTI 
-## Strategy1: Add position every 500 Pips
-## Strategy2: Week(Month) open price level for change direction (hit one position in week and wait to the end) 
-## Strategy3: Year open price level for change position direction :) and wait what will bring new happy year :)
+#### Strategy1: Add position every 500 Pips
+#### Strategy2: Week(Month) open price level for change direction (hit one position in week and wait to the end) 
+#### Strategy3: Year open price level for change position direction :) and wait what will bring new happy year :)
 
 
 # cAlgoRobotsIndicators
