@@ -24,3 +24,16 @@ http://www.codeproject.com/Articles/43438/Connect-C-to-MySQL
 http://www.chriscalender.com/tag/mysql-ssl-windows/
 
 ### Donations(PayPal): hello@breakermind.com
+
+## My favorites indicators (MT4, cTrader, jForex)
+https:/fxstar.eu/indicators.zip
+
+## Money managment
+Max 0.01 from each 100USD (from small capital) from large (>50 000 USD - 1 Lot only from all capital)
+(Then rise or fall 10USD per 100 Pips [GBPJPY,WTI,US30,DJIA - 100Pips = 1 {101,102,103}])
+## Money rise, falls
+1) Position 0.01 Lots Then rise or fall 10USD per 100 Pips
+2) Position 0.10 Lots Then rise or fall 100USD per 100 Pips
+3) Position 1.00 Lots Then rise or fall 1000USD per 100 Pips
+4) Position 10.00 Lots Then rise or fall 10000USD per 100 Pips
+5) Position 100.00 Lots Then rise or fall 100000USD per 100 Pips
