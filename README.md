@@ -11,7 +11,11 @@ Choose one from below:
 * 7) Polynominal regression (2000,3,2) timeframe M15 (Regression2000 indicator)
 * 8) Every 500 Pips add position (long time trading)
 
-I like: 2, 3, 5, 6 and: GBPJPY, GBPAUD, #US30, #WTI Strategy: Add position every 500(or 100) Pips (GBPJPY, GBPAUD, #US30)
+# I like: GBPJPY, GBPAUD, #US30, #WTI 
+## Strategy1: Add position every 500 Pips
+## Strategy2: Week(Month) open price level for change direction (hit one position in week and wait to the end) 
+## Strategy3: Year open price level for change position direction :) and wait what will bring new happy year :)
+
 
 # cAlgoRobotsIndicators
 cAlgo cBots and Indicators
