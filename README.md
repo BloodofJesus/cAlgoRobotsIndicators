@@ -1,3 +1,5 @@
+![alt text](https://github.com/breakermind/cAlgoRobotsIndicators/blob/master/_Regression.png)
+
 # How to play on forex (how to invest on forex) Simple the best ...
 Beginners: position max 0.01 lot(1000 base currency) from 100$
 
