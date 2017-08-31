@@ -36,6 +36,7 @@ Max 0.01 from each 100USD (from small capital) from large (>50 000 USD - 1 Lot o
 4) Position 10.00 Lots Then rise or fall 10000USD per 100 Pips
 5) Position 100.00 Lots Then rise or fall 100000USD per 100 Pips
 
+
 ## Donations(PayPal): hello@breakermind.com
 
 
